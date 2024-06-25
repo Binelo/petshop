@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -15,8 +16,16 @@ public class Main {
             System.out.println("6. Ver Todas as Vendas");
             System.out.println("7. Sair");
             System.out.print("Escolha uma opção: ");
+            
+            int opcao = -1;
 
-            int opcao = scanner.nextInt();
+            while (!scanner.hasNextInt()) {
+                System.out.println("Por favor, insira um número válido.");
+                System.out.print("Escolha uma opção: ");
+                scanner.next();
+            }
+
+            opcao = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcao) {
@@ -52,13 +61,24 @@ public class Main {
                     if (petShop.buscarClientePorNome(nomeCli2) != null) {
                         System.out.print("Descrição da Venda: ");
                         String descricao = scanner.nextLine();
-                        System.out.print("Valor da Venda: ");
-                        double valor = scanner.nextDouble();
+                        double valor = 0;
+                        
+                        while (true) {
+                            System.out.print("Valor da Venda: ");
+                            try {
+                                valor = scanner.nextDouble();
+                                break;
+                            } catch (InputMismatchException e) {
+                                System.out.println("Por favor, insira um valor numérico válido.");
+                                scanner.next();
+                            }
+                        }
+                        
+                        scanner.nextLine();
                         petShop.registrarVenda(nomeCli2, descricao, valor);
                     } else {
                         System.out.println("Cliente não encontrado!");
                     }
-                    
                     break;
                 case 6:
                     petShop.verTodasVendas();
