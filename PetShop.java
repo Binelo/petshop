@@ -63,6 +63,7 @@ public class PetShop {
                 for (Animal animal : cliente.getAnimais()) {
                     System.out.println("Nome: " + animal.getNome());
                     System.out.println("Tipo: " + animal.getTipo());
+                    System.out.println("-");
                 }
             }
         }
